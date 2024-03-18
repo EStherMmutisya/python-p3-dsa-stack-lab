@@ -1,25 +1,43 @@
 class Stack:
-
-    def __init__(self, items = [], limit = 100):
-        pass
-
-    def isEmpty(self):
-        pass
+    def __init__(self, items=None, capacity=None):
+        if items is None:
+            self.items = []
+        else:
+            self.items = items
+        self.capacity = capacity
 
     def push(self, item):
-        pass
+        self.items.append(item)
 
     def pop(self):
-        pass
+        if not self.isEmpty():
+            return self.items.pop()
+        else:
+            return None
 
-    def peek(self):
-        pass
-    
     def size(self):
-        pass
+        return len(self.items)
+
+    def isEmpty(self):
+        return len(self.items) == 0
 
     def full(self):
-        pass
+        is_full = self.capacity is not None and len(self.items) >= self.capacity
+        print(f"Is full? {is_full}")
+        return is_full
 
     def search(self, target):
-        pass
+        try:
+            index = len(self.items) - self.items[::-1].index(target) - 1
+            distance = self.size() - index - 1
+            print(f"Target {target} found at index {index}, distance from top: {distance}")
+            return distance
+        except ValueError:
+            print(f"Target {target} not found in the stack")
+            return -1
+
+# Example usage
+stk = Stack([1, 2, 3, 4, 5], 5)
+stk.push(6)
+stk.full()
+stk.search(3)
